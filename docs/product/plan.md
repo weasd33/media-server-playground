@@ -7,12 +7,12 @@
 > 설계 문서: `docs/superpowers/specs/2026-07-13-mediamtx-recording-design.md`
 
 ### 인프라
-- [ ] `mediamtx/Dockerfile` 작성 (alpine + curl 위에 mediamtx 바이너리 복사)
-- [ ] `mediamtx/mediamtx.yml` 작성 (`api`, `paths.test`, `record`, `runOnRecordSegmentComplete`)
-- [ ] `mediamtx/hooks/notify-segment-complete.sh` 작성
-- [ ] `docker-compose.yml` 작성 (`mediamtx`, `postgres` 서비스)
-- [ ] `.env.example` 작성(`POSTGRES_DB`/`POSTGRES_USER`/`POSTGRES_PASSWORD`) 및 `.env`를 `.gitignore`에 추가
-- [ ] `scripts/push-test-stream.ps1` 작성 (ffmpeg 테스트 스트림 push)
+- [x] `mediamtx/Dockerfile` 작성 (alpine + curl 위에 mediamtx 바이너리 복사)
+- [x] `mediamtx/mediamtx.yml` 작성 (`api`, `paths.test`, `record`, `runOnRecordSegmentComplete`)
+- [x] `mediamtx/hooks/notify-segment-complete.sh` 작성
+- [x] `docker-compose.yml` 작성 (`mediamtx`, `postgres` 서비스)
+- [x] `.env.example` 작성(`POSTGRES_DB`/`POSTGRES_USER`/`POSTGRES_PASSWORD`) 및 `.env`를 `.gitignore`에 추가
+- [x] `scripts/push-test-stream.ps1` 작성 (ffmpeg 테스트 스트림 push)
 
 ### media 도메인 (MediaMTX 연동)
 - [ ] `media/config/MediaMtxProperties` 작성

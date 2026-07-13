@@ -1,0 +1,22 @@
+api: yes
+apiAddress: :9997
+
+authInternalUsers:
+  - user: any
+    pass:
+    ips: []
+    permissions:
+      - action: publish
+      - action: read
+      - action: playback
+      - action: api
+      - action: metrics
+
+paths:
+  test:
+    source: publisher
+    record: no
+    recordPath: /recordings/%path/%Y-%m-%d_%H-%M-%S-%f
+    recordFormat: fmp4
+    recordSegmentDuration: 1m
+    runOnRecordSegmentComplete: /hooks/notify-segment-complete.sh

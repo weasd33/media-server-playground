@@ -80,6 +80,17 @@ ENTRYPOINT ["/mediamtx"]
 api: yes
 apiAddress: :9997
 
+authInternalUsers:
+  - user: any
+    pass:
+    ips: []
+    permissions:
+      - action: publish
+      - action: read
+      - action: playback
+      - action: api
+      - action: metrics
+
 paths:
   test:
     source: publisher
@@ -91,6 +102,8 @@ paths:
 ```
 
 `record: no`로 시작하며, Spring Boot API 호출로 켠다(v3 Control API `PATCH /v3/config/paths/patch/test` body `{"record": true}`).
+
+기본 `mediamtx.yml`은 `api` 액션을 루프백(127.0.0.1)에서만 허용하는데, 호스트에서 게시된 포트로 접근하면 컨테이너 입장에서는 루프백이 아니라 인증 오류가 난다. 학습용 환경이므로 `authInternalUsers`에 `api`/`metrics` 액션을 인증 없이 허용하도록 명시한다(운영 환경에서는 부적절하므로 범위 밖으로 둔다).
 
 ### 4. `mediamtx/hooks/notify-segment-complete.sh`
 
@@ -109,8 +122,11 @@ ffmpeg lavfi testsrc를 `rtsp://localhost:8554/test`로 push하는 로컬 실행
 ffmpeg -re -f lavfi -i "testsrc=size=640x480:rate=25" `
   -f lavfi -i "sine=frequency=1000" `
   -c:v libx264 -preset veryfast -c:a aac `
+  -rtsp_transport tcp `
   -f rtsp rtsp://localhost:8554/test
 ```
+
+`docker-compose.yml`은 RTSP 시그널링 포트(8554/TCP)만 노출하고 UDP RTP/RTCP 포트(8000-8001)는 노출하지 않으므로, 기본 UDP 트랜스포트로 publish하면 RTCP를 못 받아 세션이 타임아웃된다. `-rtsp_transport tcp`로 미디어까지 TCP 하나로 터널링해서 이 문제를 피한다.
 
 ### 6. Spring Boot 패키지 구조 (도메인 계층형)
 
