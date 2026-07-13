@@ -28,12 +28,12 @@
 - [ ] `record/controller/RecordingController` 작성
 
 ### 공통
-- [ ] `common/response/ApiResponse` 작성
-- [ ] `common/exception/MediaMtxApiException`, `common/exception/InvalidWebhookPayloadException` 작성
-- [ ] `common/exception/GlobalExceptionHandler` 작성
+- [x] `common/response/ApiResponse` 작성
+- [x] `common/exception/MediaMtxApiException`, `common/exception/InvalidWebhookPayloadException` 작성
+- [x] `common/exception/GlobalExceptionHandler` 작성
 
 ### 설정
-- [ ] `application.yml`에 PostgreSQL datasource(`.env` 값 참조), JPA 설정 추가
+- [x] `application.yml`에 PostgreSQL datasource(`.env` 값 참조), JPA 설정 추가
 - [ ] SpringDoc(Swagger) 의존성 추가 및 각 엔드포인트/DTO에 `@Operation`/`@Schema` 작성
 
 ### 테스트
