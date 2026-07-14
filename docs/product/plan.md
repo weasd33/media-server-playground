@@ -43,8 +43,8 @@
 - [x] `RecordingService` 단위 테스트 작성 (`MediaMtxApiClient` mock)
 
 ### 수동 검증
-- [ ] `docker compose up`으로 mediamtx/postgres 기동 확인
-- [ ] `PATCH /api/paths/test/recording`으로 녹화 on 확인
-- [ ] `scripts/push-test-stream.ps1`으로 테스트 스트림 송출
-- [ ] `mediamtx/recordings` 디렉토리에 세그먼트 파일 생성 확인
-- [ ] `GET /api/recordings`로 메타데이터 저장 확인
+- [x] `docker compose up`으로 mediamtx/postgres 기동 확인
+- [x] `PATCH /api/paths/test/recording`으로 녹화 on 확인
+- [x] `scripts/push-test-stream.ps1`으로 테스트 스트림 송출
+- [x] `mediamtx/recordings` 디렉토리에 세그먼트 파일 생성 확인
+- [x] `GET /api/recordings`로 메타데이터 저장 확인
