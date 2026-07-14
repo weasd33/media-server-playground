@@ -4,6 +4,7 @@ import com.github.weasd33.playground.common.response.ApiResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -23,6 +24,17 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ApiResponse<Void>> handleInvalidWebhookPayloadException(InvalidWebhookPayloadException e) {
         log.warn("[InvalidWebhookPayloadException] 잘못된 웹훅 페이로드 요청: {}", e.getMessage());
         return ResponseEntity.badRequest().body(ApiResponse.error(e.getMessage()));
+    }
+
+    // 4xx 에러: @Valid 필드 검증 실패
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ApiResponse<Void>> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+        String message = e.getBindingResult().getFieldErrors().stream()
+                .map(error -> error.getField() + ": " + error.getDefaultMessage())
+                .findFirst()
+                .orElse("잘못된 요청입니다.");
+        log.warn("[MethodArgumentNotValidException] 요청 값 검증 실패: {}", message);
+        return ResponseEntity.badRequest().body(ApiResponse.error(message));
     }
 
     // 예상치 못한 모든 에러

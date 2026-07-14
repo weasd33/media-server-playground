@@ -9,3 +9,6 @@ spring:
     hibernate:
       ddl-auto: update
     open-in-view: false
+
+mediamtx:
+  base-url: http://localhost:9997
