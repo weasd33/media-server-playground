@@ -1,11 +1,7 @@
 
 # 구현 계획
 
-프로젝트에서 구현할 기능 단위를 체크박스로 나열하고, 하나씩 구현할 때마다 체크한다. 각 주제의 상세 아키텍처/설계는 `docs/superpowers/specs/`의 개별 설계 문서를 참고한다.
-
 ## MediaMTX 녹화 연동
-
-> 설계 문서: `docs/superpowers/specs/2026-07-13-mediamtx-recording-design.md`
 
 ### 인프라
 - [x] `mediamtx/Dockerfile` 작성 (alpine + curl 위에 mediamtx 바이너리 복사)
@@ -48,3 +44,31 @@
 - [x] `scripts/push-test-stream.ps1`으로 테스트 스트림 송출
 - [x] `mediamtx/recordings` 디렉토리에 세그먼트 파일 생성 확인
 - [x] `GET /api/recordings`로 메타데이터 저장 확인
+
+## 녹화 웹훅 신뢰성 개선
+
+### MediaMTX 설정/훅
+- [ ] `mediamtx/mediamtx.yml`의 `recordPath`를 평평한 구조로 변경 (`recordings/recording/%path_%Y-%m-%d_%H-%M-%S-%f`)
+- [ ] `mediamtx/hooks/notify-segment-complete.sh` 재작성 (웹훅 시도 후 응답 코드로 `completed`/`error` 분기, `--max-time` 추가)
+
+### media 도메인
+- [ ] `media/dto/MediaMtxRecordingWebhookRequest`의 `segmentPath` 예시 값을 파일명 기준으로 수정
+
+### record 도메인
+- [ ] `record/domain/RecordingSegment`에 `segmentPath` unique 제약 추가
+- [ ] `record/repository/RecordingSegmentRepository`에 `existsBySegmentPath` 추가
+- [ ] `record/config/RecordingStorageProperties` 작성 (`error`/`completed` base 디렉토리 설정화)
+- [ ] `record/scheduler/RecordingReconciliationScheduler` 작성 (`error/` 스캔 → DB 저장 → `completed/` 이동)
+- [ ] `MediaPlaygroundApplication`에 `@EnableScheduling` 추가
+
+### 설정
+- [ ] `application.yml`에 `recording.storage.error-dir`/`completed-dir` 추가
+
+### 테스트
+- [ ] `RecordingReconciliationScheduler` 단위 테스트 작성 (`@TempDir` + Repository mock)
+- [ ] `RecordingSegment` unique 제약 검증 `@DataJpaTest` 작성
+
+### 수동 검증
+- [ ] Spring Boot 중지 상태에서 세그먼트 녹화 → `error/`에 파일 쌓이는지 확인
+- [ ] Spring Boot 재기동 후 재조정 스케줄러가 DB 저장 + `completed/` 이동시키는지 확인
+- [ ] 정상 상황에서 웹훅 성공 시 `completed/`로 바로 이동하는지 확인
