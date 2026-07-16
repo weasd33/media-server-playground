@@ -38,4 +38,4 @@ out/
 
 ### Env / MediaMTX ###
 .env
-mediamtx/recordings/
+storage/

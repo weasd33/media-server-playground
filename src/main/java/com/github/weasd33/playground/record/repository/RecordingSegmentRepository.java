@@ -7,4 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface RecordingSegmentRepository extends JpaRepository<RecordingSegment, Long> {
 
     List<RecordingSegment> findByPathName(String pathName);
+
+    boolean existsBySegmentPath(String segmentPath);
 }
