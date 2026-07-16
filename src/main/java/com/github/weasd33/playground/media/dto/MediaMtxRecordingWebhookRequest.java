@@ -10,7 +10,7 @@ public record MediaMtxRecordingWebhookRequest(
         String pathName,
 
         @NotBlank(message = "segmentPath는 필수입니다.")
-        @Schema(description = "생성된 녹화 세그먼트 파일 경로", example = "/recordings/test/2026-07-14_10-00-00-000000.mp4")
+        @Schema(description = "생성된 녹화 세그먼트 파일 경로", example = "test_2026-07-14_10-00-00-000000.mp4")
         String segmentPath
 ) {
 }

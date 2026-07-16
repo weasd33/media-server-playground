@@ -22,7 +22,7 @@ public class RecordingSegment {
     @Column(nullable = false)
     private String pathName;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String segmentPath;
 
     @Column(nullable = false)

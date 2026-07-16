@@ -48,27 +48,27 @@
 ## 녹화 웹훅 신뢰성 개선
 
 ### MediaMTX 설정/훅
-- [ ] `mediamtx/mediamtx.yml`의 `recordPath`를 평평한 구조로 변경 (`recordings/recording/%path_%Y-%m-%d_%H-%M-%S-%f`)
-- [ ] `mediamtx/hooks/notify-segment-complete.sh` 재작성 (웹훅 시도 후 응답 코드로 `completed`/`error` 분기, `--max-time` 추가)
+- [x] `mediamtx/mediamtx.yml`의 `recordPath`를 평평한 구조로 변경 (`recordings/recording/%path_%Y-%m-%d_%H-%M-%S-%f`)
+- [x] `mediamtx/hooks/notify-segment-complete.sh` 재작성 (웹훅 시도 후 응답 코드로 `completed`/`error` 분기, `--max-time` 추가)
 
 ### media 도메인
-- [ ] `media/dto/MediaMtxRecordingWebhookRequest`의 `segmentPath` 예시 값을 파일명 기준으로 수정
+- [x] `media/dto/MediaMtxRecordingWebhookRequest`의 `segmentPath` 예시 값을 파일명 기준으로 수정
 
 ### record 도메인
-- [ ] `record/domain/RecordingSegment`에 `segmentPath` unique 제약 추가
-- [ ] `record/repository/RecordingSegmentRepository`에 `existsBySegmentPath` 추가
-- [ ] `record/config/RecordingStorageProperties` 작성 (`error`/`completed` base 디렉토리 설정화)
-- [ ] `record/scheduler/RecordingReconciliationScheduler` 작성 (`error/` 스캔 → DB 저장 → `completed/` 이동)
-- [ ] `MediaPlaygroundApplication`에 `@EnableScheduling` 추가
+- [x] `record/domain/RecordingSegment`에 `segmentPath` unique 제약 추가
+- [x] `record/repository/RecordingSegmentRepository`에 `existsBySegmentPath` 추가
+- [x] `record/config/RecordingStorageProperties` 작성 (`error`/`completed` base 디렉토리 설정화)
+- [x] `record/scheduler/RecordingReconciliationScheduler` 작성 (`error/` 스캔 → DB 저장 → `completed/` 이동)
+- [x] `MediaPlaygroundApplication`에 `@EnableScheduling` 추가
 
 ### 설정
-- [ ] `application.yml`에 `recording.storage.error-dir`/`completed-dir` 추가
+- [x] `application.yml`에 `recording.storage.error-dir`/`completed-dir` 추가
 
 ### 테스트
-- [ ] `RecordingReconciliationScheduler` 단위 테스트 작성 (`@TempDir` + Repository mock)
-- [ ] `RecordingSegment` unique 제약 검증 `@DataJpaTest` 작성
+- [x] `RecordingReconciliationScheduler` 단위 테스트 작성 (`@TempDir` + Repository mock)
+- [x] `RecordingSegment` unique 제약 검증 `@DataJpaTest` 작성
 
 ### 수동 검증
-- [ ] Spring Boot 중지 상태에서 세그먼트 녹화 → `error/`에 파일 쌓이는지 확인
-- [ ] Spring Boot 재기동 후 재조정 스케줄러가 DB 저장 + `completed/` 이동시키는지 확인
-- [ ] 정상 상황에서 웹훅 성공 시 `completed/`로 바로 이동하는지 확인
+- [x] Spring Boot 중지 상태에서 세그먼트 녹화 → `error/`에 파일 쌓이는지 확인
+- [x] Spring Boot 재기동 후 재조정 스케줄러가 DB 저장 + `completed/` 이동시키는지 확인
+- [x] 정상 상황에서 웹훅 성공 시 `completed/`로 바로 이동하는지 확인

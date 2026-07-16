@@ -16,7 +16,7 @@ paths:
   test:
     source: publisher
     record: no
-    recordPath: /recordings/%path/%Y-%m-%d_%H-%M-%S-%f
+    recordPath: /storage/recording/%path_%Y-%m-%d_%H-%M-%S-%f
     recordFormat: fmp4
     recordSegmentDuration: 1m
-    runOnRecordSegmentComplete: /hooks/notify-segment-complete.sh
+    runOnRecordSegmentComplete: /hooks/notify-segment-complete.sh /storage/completed /storage/error

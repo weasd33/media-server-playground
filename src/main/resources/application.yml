@@ -12,3 +12,9 @@ spring:
 
 mediamtx:
   base-url: http://localhost:9997
+
+recording:
+  storage:
+    recording-dir: storage/recording
+    error-dir: storage/error
+    completed-dir: storage/completed
